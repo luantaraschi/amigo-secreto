@@ -3,27 +3,35 @@ let amigos =  [];
 function adicionar() {
     let amigo = document.getElementById('nome-amigo');
     let lista = document.getElementById('lista-amigos');
-    amigos.push(amigo.value);
-    if (lista.textContent == '') {
-        lista.textContent = amigo.value;
+    if (amigo.value.trim() === '') {
+        alert("Por favor, insira um nome!");
+    } else if (amigos.includes(amigo.value)) {
+        alert("Este nome já existe na lista!");
     } else {
-        lista.textContent = lista.textContent  + ', ' + amigo.value;
-    }
-    amigo.value = '';
-}
-
-function sortear() {
-    embaralha(amigos);
-    let sorteio = document.getElementById('lista-sorteio');
-    
-    for (let i = 0; i < amigos.length; i++) {
-
-        if (i == amigos.length - 1) {
-            sorteio.innerHTML = sorteio.innerHTML + amigos[i] + ' --> ' + amigos[0] + '<br>';
+        amigos.push(amigo.value);
+        if (lista.textContent == '') {
+            lista.textContent = amigo.value;
         } else {
-            sorteio.innerHTML = sorteio.innerHTML + amigos[i] + ' --> ' + amigos[i + 1] + '<br>';
+            lista.textContent = lista.textContent + ', ' + amigo.value;
         }
-    }     
+        amigo.value = '';
+    }
+}
+function sortear() {
+    if (amigos.length < 3) {
+        alert("Você precisa ter pelo menos 3 amigos na lista para realizar o sorteio!");
+    } else {
+        embaralha(amigos);
+        let sorteio = document.getElementById('lista-sorteio');
+        
+        for (let i = 0; i < amigos.length; i++) {
+            if (i == amigos.length - 1) {
+                sorteio.innerHTML = sorteio.innerHTML + amigos[i] + ' --> ' + amigos[0] + '<br>';
+            } else {
+                sorteio.innerHTML = sorteio.innerHTML + amigos[i] + ' --> ' + amigos[i + 1] + '<br>';
+            }
+        }
+    }
 }
 function embaralha(lista) {
 
